@@ -1,0 +1,54 @@
+{% extends 'task_app_base.html' %} 
+
+{% block title %} Home Page {% endblock %} 
+
+{%block content %}
+
+<h3 class="title is-3 center-align">Your Tasks</h3>
+
+{% if empty == False %}
+<div class="dropdown" style="float: right; margin-right: 80px">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #262626">Sort</button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        <li>
+            <a class="dropdown-item" href="{% url 'sortpriority' %}">By Priority</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'sortnew' %}">Newest First</a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'home' %}">Oldest First</a>
+        </li>
+    </ul>
+</div>
+{% endif %}
+
+<div class="section">
+
+    {% if empty == True %}
+    <br><br>
+    <center>
+        <h5>No Current Tasks</h5>
+    </center>
+    {% endif %} 
+
+    {% if empty == False %}
+    <br> 
+
+    {% for t in task %}
+    <h4>{{ t.title }}</h4>
+
+    <a class="btn-2 pull-left btn waves-effect waves-light" href="{% url 'deletetask' t.id %}" style="float: right; margin-top: 65px; margin-right: 80px" onclick="return confirm('Are you sure?')">Remove</a>
+    <a class="btn-2 pull-left btn waves-effect waves-light" href="{% url 'updatetask' t.id %}" style="float: right; margin-top: 65px; margin-right: 30px">Update</a>
+    <a class="btn-2 pull-left btn waves-effect waves-light" href="{% url 'complete' t.id %}" style="float: right; margin-top: 65px; margin-right: 30px">Completed</a>
+
+    <h6>{{ t.description }}</h6>
+    <h6 style="font-weight: lighter">Added on {{ t.date }}</h6>
+    <br>
+    <div class="divider"></div>
+    {% endfor %} 
+    
+    {% endif %}
+</div>
+
+{% endblock %}
