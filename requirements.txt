@@ -1,0 +1,7 @@
+Django
+pillow
+gunicorn
+whitenoise
+mysqlclient
+boto3
+django-storages
